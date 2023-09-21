@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo usermod -a -G docker user
+sudo docker build -t minimal-webserver .
+sudo docker run -p 8080:80 minimal-webserver &
+echo "In Firefox open http://127.0.0.1:8080"
+exit 0

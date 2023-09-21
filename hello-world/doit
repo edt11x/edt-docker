@@ -1,5 +1,4 @@
 #!/bin/bash
 sudo usermod -a -G docker user
-newgrp docker
-docker build -t hello-world .
-docker run hello-world
+sudo docker build -t hello-world .
+sudo docker run hello-world
