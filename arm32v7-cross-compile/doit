@@ -1,0 +1,6 @@
+#!/bin/bash
+# try both, they are named differently in different versions of Linux
+sudo docker run --privileged --rm tonistiigi/binfmt --install arm32v7
+sudo docker run --privileged --rm tonistiigi/binfmt --install linux/arm/v7
+sudo docker build --platform linux/arm/v7 -t arm32v7-cross-compile .
+sudo docker run --platform linux/arm/v7 arm32v7-cross-compile
