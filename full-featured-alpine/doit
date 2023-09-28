@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo docker build --platform linux/arm/v7 -t full-featured-alpine .
+sudo docker run -it --init --platform linux/arm/v7 full-featured-alpine
+
