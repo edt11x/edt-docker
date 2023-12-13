@@ -1,0 +1,16 @@
+#!/bin/bash
+export CONTAINER=ubuntu-build-container
+/bin/rm -f $CONTAINER
+sudo docker build -t $CONTAINER .
+sudo docker run -it $CONTAOINER
+/bin/rm -f $CONTAINER.tar
+sudo docker ps -a
+sudo docker container ls -a
+sudo docker save $CONTAINER -o $CONTAINER.tar
+sudo chown user.user $CONTAINER.tar
+sudo docker stop $( sudo docker ps -a -q )
+sudo docker rm $( sudo docker ps -a -q )
+sudo docker system prune -af
+df -h .
+exit 0
+
