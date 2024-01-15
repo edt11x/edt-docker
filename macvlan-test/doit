@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+sudo usermod -a -G docker user
+sudo docker network ls
+sudo docker network prune
+sudo docker network ls
+sudo docker network create -d macvlan \
+    --subnet=172.16.86.0/24 \
+    --gateway=172.16.86.1 \
+    -o parent=eth0 \
+    port1
+sudo docker network ls
+sudo docker build -t macvlan-test .
+sudo docker run --rm -it \
+    --cap-add=NET_ADMIN \
+    --network port1 \
+    macvlan-test

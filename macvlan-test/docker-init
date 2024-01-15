@@ -1,0 +1,9 @@
+#!/bin/bash
+# Initialization script
+ip link set eth0 down
+ip link set eth0 name port1
+ip link set port1 up
+ip a
+
+/bin/bash
+exit 0
