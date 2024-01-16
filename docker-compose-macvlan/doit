@@ -1,0 +1,3 @@
+sudo docker-compose up -d
+sudo docker attach docker-compose-macvlan_my_macvlan_1
+sudo docker-compose down

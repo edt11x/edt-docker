@@ -1,0 +1,14 @@
+version: "3"
+services:
+  my_macvlan:
+    image: alpine
+    stdin_open: true
+    tty: true
+    command: /bin/sh
+    networks:
+      - my_network
+networks:
+  my_network:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
