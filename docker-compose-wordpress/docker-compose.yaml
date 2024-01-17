@@ -1,32 +1,36 @@
 version: "3"
+
 services:
+  db_node_domain:
+    image: mysql:5.7
+    container_name: db_server
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: coffee
+      MYSQL_DATABASE: mywordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
   wordpress:
-    image: wordpress
+    depends_on:
+      - db_node_domain
+    image: wordpress:latest
+    container_name: wp_web
     ports:
       - "8080:80"
-    depends_on:
-      - mysql
+    expose:
+      - 80
     environment:
-      WORDPRESS_DB_HOST: mysql
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWD: "coffee"
-      WORDPRESS_DB_NAME: wordpress
-    networks:
-      mynetwork:
-        ipv4_address: "10.56.1.21"
-  mysql:
-    image: "mysql:5.7"
-    environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_ROOT_PASSWORD: "coffee"
-    volumes:
-      - ./mysql:/var/lib/mysql
-    networks:
-      mynetwork:
-        ipv4_address: "10.56.1.20"
-networks:
-  mynetwork:
-    ipam:
-      driver: default
-      config:
-        - subnet: "10.56.1.0/24"
+      WORDPRESS_DB_HOST: db_node_domain:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWD: wordpress
+      WORDPRESS_DB_NAME: mywordpress
+
+volumes:
+  db_data:
+
