@@ -11,8 +11,10 @@ services:
     expose:
       - 3306
     environment:
-      MYSQL_ROOT_PASSWORD: coffee
+      MYSQL_ROOT_HOST: "%"
       MYSQL_DATABASE: mywordpress
+      MYSQL_ROOT_PASSWORD: coffee
+      MYSQL_USER_HOST: "%"
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
 
@@ -27,9 +29,9 @@ services:
       - 80
     environment:
       WORDPRESS_DB_HOST: db_node_domain:3306
+      WORDPRESS_DB_NAME: mywordpress
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWD: wordpress
-      WORDPRESS_DB_NAME: mywordpress
 
 volumes:
   db_data:

@@ -1,0 +1,7 @@
+#!/bin/bash
+sudo docker-compose down
+sudo docker volume ls
+sudo docker volume rm $(sudo docker volume ls -q)
+sudo docker network ls
+sudo docker prune
+sudo docker network ls
