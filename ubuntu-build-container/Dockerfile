@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update
-RUN apt-get install -yq \
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -yq \
 astyle \
 build-essential \
 chrpath \

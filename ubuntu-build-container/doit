@@ -2,7 +2,7 @@
 export CONTAINER=ubuntu-build-container
 /bin/rm -f $CONTAINER
 sudo docker build -t $CONTAINER .
-sudo docker run -it $CONTAOINER
+sudo docker run -it $CONTAINER
 /bin/rm -f $CONTAINER.tar
 sudo docker ps -a
 sudo docker container ls -a
