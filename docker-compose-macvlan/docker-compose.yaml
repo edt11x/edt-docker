@@ -6,9 +6,15 @@ services:
     tty: true
     command: /bin/sh
     networks:
-      - my_network
+      - eth0
+      - port0
+      - port1
 networks:
-  my_network:
+  eth0:
     driver: macvlan
     driver_opts:
-      parent: eth0
+      com.docker.network.bridge.name: eth0
+  port0:
+    driver: macvlan
+  port1:
+    driver: macvlan
