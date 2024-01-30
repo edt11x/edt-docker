@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo usermod -a -G docker user
+sudo docker build -t ubuntu-2204-bash .
+sudo docker run -it --rm ubuntu-2204-bash
