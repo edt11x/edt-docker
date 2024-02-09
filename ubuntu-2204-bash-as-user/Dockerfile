@@ -12,5 +12,9 @@ iputils-ping \
 net-tools && \
 apt-get clean
 
+RUN groupadd -g 1000 user
+RUN useradd -m -u 1000 -g 1000 user
+USER user
+
 CMD ["/bin/bash"]
 
