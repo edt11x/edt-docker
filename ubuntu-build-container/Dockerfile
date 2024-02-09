@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM arm64v8/ubuntu:20.04
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -yq \
@@ -10,10 +10,10 @@ debianutils \
 diffstat \
 doxygen \
 htop \
-g++-multilib \
+g++ \
 gawk \
-gcc-multilib \
-gdb-multiarch \
+gcc \
+gdb \
 git-core \
 graphviz \
 gzip \
