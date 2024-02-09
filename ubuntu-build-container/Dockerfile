@@ -2,9 +2,13 @@ FROM arm64v8/ubuntu:20.04
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -yq \
+bash \
 astyle \
+bridge-utils \
 build-essential \
+busybox \
 chrpath \
+coreutils \
 cpio \
 debianutils \
 diffstat \
@@ -17,6 +21,7 @@ gdb \
 git-core \
 graphviz \
 gzip \
+iproute2 \
 iputils-ping \
 kpartx \
 libelf-dev \
@@ -33,14 +38,13 @@ python3-virtualenv \
 python3 \
 python3-pexpect \
 python3-pip \
-qemu-user-static \
-qemu-system-arm \
 quilt \
 ripgrep \
 ruby \
 scons \
 secure-delete \
 socat \
+tcpdump \
 texinfo \
 unzip \
 wget \
@@ -69,12 +73,15 @@ cppcheck \
 iwyu \
 locate \
 ethtool \
-net-tools \
 iperf3 \
-gnome-session \
-ubuntu-desktop \
 htop \
 glances \
-p7zip-full
+p7zip-full \
+net-tools && \
+apt-get clean
+
+RUN groupadd -g 1000 user
+RUN useradd -m -u 1000 -g 1000 user
+USER user
 
 CMD ["/bin/bash"]

@@ -1,16 +1,20 @@
 #!/bin/bash
+set -x
 export CONTAINER=ubuntu-build-container
 /bin/rm -f $CONTAINER
-sudo docker build -t $CONTAINER .
-sudo docker run -it $CONTAINER --name $CONTAINER
+# make user that user is in the docker group
+grep -q '^docker:.*user' /etc/group || sudo usermod -aG docker user
+if [ "$(id -gn)" != "docker" ]
+then
+    # re-exec the shell script so we are running in the docker group
+    exec sg docker "$0 $*"
+fi
+docker build -t $CONTAINER .
+sudo docker run -it -u "1000:1000" $CONTAINER --name $CONTAINER
 /bin/rm -f $CONTAINER.tar
 sudo docker ps -a
 sudo docker container ls -a
 sudo docker save $CONTAINER -o $CONTAINER.tar
 sudo chown user.user $CONTAINER.tar
-sudo docker stop $( sudo docker ps -a -q )
-sudo docker rm $( sudo docker ps -a -q )
-sudo docker system prune -af
-df -h .
 exit 0
 

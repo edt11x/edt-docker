@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 RUN apt-get update && \
-DEBIAN_FRONTEND=noninteractive apt-get install -y \
+DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -yq \
 bash \
 bridge-utils \
 busybox \
