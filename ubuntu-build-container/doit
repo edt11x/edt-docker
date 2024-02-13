@@ -10,7 +10,7 @@ then
     exec sg docker "$0 $*"
 fi
 docker build -t $CONTAINER .
-docker run -it -u "1000:1000" $CONTAINER --name $CONTAINER
+docker run -it -u "1000:1000" --init --platform linux/arm64 --name $CONTAINER $CONTAINER /bin/bash
 /bin/rm -f $CONTAINER.tar
 set -x
 docker ps -a
