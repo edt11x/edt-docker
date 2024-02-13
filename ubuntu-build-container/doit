@@ -10,11 +10,24 @@ then
     exec sg docker "$0 $*"
 fi
 docker build -t $CONTAINER .
-sudo docker run -it -u "1000:1000" $CONTAINER --name $CONTAINER
+docker run -it -u "1000:1000" $CONTAINER --name $CONTAINER
 /bin/rm -f $CONTAINER.tar
-sudo docker ps -a
-sudo docker container ls -a
-sudo docker save $CONTAINER -o $CONTAINER.tar
-sudo chown user.user $CONTAINER.tar
+set -x
+docker ps -a
+set +x
+echo " "
+echo " "
+set -x
+docker container ls -a
+set +x
+echo " "
+echo " "
+set -x
+docker save $CONTAINER -o $CONTAINER.tar
+set +x
+echo " "
+echo " "
+set -x
+docker container ls -a
 exit 0
 
