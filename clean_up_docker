@@ -1,0 +1,45 @@
+#!/bin/bash
+# we will use sudo to know we can get all the containers
+set -e
+echo "Stop all the containers"
+if [ -z "$( sudo docker ps -aq )" ]
+then
+    echo "  ... No Docker containers to stop"
+else
+    set -x
+    sudo docker stop $( sudo docker ps -aq )
+    set +x
+fi
+echo "Remove all the containers"
+if [ -z "$( sudo docker ps -aq )" ]
+then
+    echo "  ... No Docker containers to remove"
+else
+    set -x
+    sudo docker rm -f $( sudo docker ps -aq )
+    set +x
+fi
+echo "Remove all the images"
+if [ -z "$( sudo docker images -aq )" ]
+then
+    echo "  ... No Docker images to remove"
+else
+    # we may have dependencies that require multiple iterations
+    set +e
+    for i in 0 1 2 3 4 5
+    do
+        if [ -z "$( sudo docker images -aq )" ]
+        then
+            set -x
+            sudo docker rmi -f $( sudo docker images -aq )
+            set +x
+        fi
+    done
+    set -e
+fi
+echo "Remove all the unused volumes"
+sudo docker volume prune -f
+echo "Remove all the netowks"
+sudo docker network prune -f
+echo "Done."
+exit 0

@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+set -x
+# make user that user is in the docker group
+grep -q '^docker:.*user' /etc/group || sudo usermod -aG docker user
+if [ "$(id -gn)" != "docker" ]
+then
+    # re-exec the shell script so we are running in the docker group
+    exec sg docker "$0 $*"
+fi
+docker network ls
+docker network prune
+docker network ls
+#     -o parent=eth0
+docker network create -d macvlan \
+    --subnet=172.16.86.0/24 \
+    --gateway=172.16.86.1 \
+    eth0
+docker network create -d macvlan \
+    --subnet=172.16.87.0/24 \
+    --gateway=172.16.87.1 \
+    port1
+docker network create -d macvlan \
+    --subnet=172.16.88.0/24 \
+    --gateway=172.16.88.1 \
+    port2
+docker network ls
+docker build -t multi-macvlan-test .
+docker create --rm -it \
+    --cap-add=NET_ADMIN \
+    --network eth0 \
+    --name multi-macvlan-test \
+    multi-macvlan-test
+docker network connect port1 multi-macvlan-test
+docker network connect port2 multi-macvlan-test
+docker start multi-macvlan-test
+docker attach multi-macvlan-test

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Initialization script
+for i in 1 2
+do
+    ip link set eth${i} down
+    ip link set eth${i} name port${i}
+    ip link set port${i} up
+done
+ip a
+
+/bin/bash
+exit 0
