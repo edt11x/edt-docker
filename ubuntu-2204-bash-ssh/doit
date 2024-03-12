@@ -2,5 +2,7 @@
 export CONTAINER=ubuntu-2204-bash-ssh
 grep -qF 'docker:' /etc/group || sudo groupadd docker
 grep -q "docker:.*$USER" /etc/group || sudo usermod -aG docker "$USER"
+sudo /bin/rm -f id_rsa.pub
+sudo /bin/cp -ax ~root/.ssh/id_rsa.pub .
 sudo docker build -t ${CONTAINER} .
 sudo docker run -it --rm ${CONTAINER}
