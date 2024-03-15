@@ -9,8 +9,10 @@ then
     # re-exec the shell script so we are running in the docker group
     exec sg docker "$0 $*"
 fi
-docker build -t $CONTAINER .
-docker run -it -u "1000:1000" --init --platform linux/arm64 --name $CONTAINER $CONTAINER /bin/bash
+echo "To mount the home directory, we will temporarily disable SELinux"
+sudo setenforce 0
+# docker build -t $CONTAINER .
+docker run --mount type=bind,source=/home/user,target=/home/user -it --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -u "1000:1000" --init --platform linux/arm64 --name $CONTAINER $CONTAINER /bin/bash
 /bin/rm -f $CONTAINER.tar
 set -x
 docker ps -a
@@ -29,5 +31,7 @@ echo " "
 echo " "
 set -x
 docker container ls -a
+set +x
+echo "Note the container was run without --rm, you may want to: docker rm $CONTAINER"
+echo "Done."
 exit 0
-
