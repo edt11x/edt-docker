@@ -44,6 +44,7 @@ ruby \
 scons \
 secure-delete \
 socat \
+sudo \
 tcpdump \
 texinfo \
 unzip \
