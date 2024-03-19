@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:20.04
+FROM ubuntu:20.04
 
 RUN apt-get update
 RUN apt-get upgrade
@@ -21,6 +21,7 @@ curl \
 debianutils \
 diffstat \
 dnsmasq \
+dnsutils \
 docker \
 docker-compose \
 docker-doc \
@@ -119,6 +120,7 @@ zlib1g \
 zlib1g-dev \
 && apt-get clean
 
+RUN sudo locale-gen en_US.UTF-8
 RUN groupadd -g 1000 user
 RUN useradd -m -u 1000 -g 1000 user
 RUN echo "user ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/usersudo

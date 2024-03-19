@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "This Docker container is a good Ubuntu build environment, both for x86 and ARM64 (aarch64)"
+set -x
+export CONTAINER=ubuntu-build-container-x86
+# make user that user is in the docker group
+grep -q '^docker:.*user' /etc/group || sudo usermod -aG docker user
+if [ "$(id -gn)" != "docker" ]
+then
+    # re-exec the shell script so we are running in the docker group
+    exec sg docker "$0 $*"
+fi
+docker build -t $CONTAINER .
