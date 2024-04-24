@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo docker login --username edt11x --password $API_TOKEN ghcr.io
+curl -v -u $USER:$API_TOKEN https://ghcr.io/v2/

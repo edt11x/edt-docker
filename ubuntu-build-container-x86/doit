@@ -3,14 +3,14 @@ echo "This Docker container is a good Ubuntu build environment, both for x86 and
 set -x
 export CONTAINER=ubuntu-build-container-x86
 # make user that user is in the docker group
-grep -q '^docker:.*user' /etc/group || sudo usermod -aG docker user
+grep -q '^docker:.*'"$USER" /etc/group || sudo usermod -aG docker "$USER"
 if [ "$(id -gn)" != "docker" ]
 then
     # re-exec the shell script so we are running in the docker group
     exec sg docker "$0 $*"
 fi
 # docker build -t $CONTAINER .
-docker run --mount type=bind,source=/home/user,target=/home/user -it -u "1000:1000" --init --name $CONTAINER $CONTAINER /bin/bash
+docker run --mount type=bind,source="$HOME",target="$HOME" -it -u "1000:1000" --init --name $CONTAINER $CONTAINER /bin/bash
 # docker run --mount type=bind,source=/home/user,target=/home/user -it -u root --init --name $CONTAINER $CONTAINER /bin/bash
 /bin/rm -f $CONTAINER.tar
 set -x

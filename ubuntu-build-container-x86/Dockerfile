@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update
-RUN apt-get upgrade
+RUN apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -yq \
 apt-file \
 astyle \
@@ -31,8 +31,15 @@ doxygen \
 ethtool \
 file \
 flex \
+fonts-indic \
+fonts-ipafont-gothic \
+fonts-ipafont-mincho \
+fonts-nanum \
+fonts-wqy-microhei \
+fonts-wqy-zenhei \
+g++-9-multilib \
 gawk \
-gcc \
+gcc-9-multilib \
 gdb \
 git \
 git-core \
@@ -48,8 +55,20 @@ iproute2 \
 iputils-ping \
 iwyu \
 kpartx \
+lib32asan5 \
+lib32atomic1 \
+lib32gcc-9-dev \
+lib32gomp1 \
+lib32itm1 \
+lib32quadmath0 \
+lib32stdc++-9-dev \
+lib32stdc++6-9-dbg \
+lib32ubsan1 \
 libc-ares-dev \
 libc6-dev \
+libc6-dev-i386 \
+libc6-dev-x32 \
+libc6-x32 \
 libcurl4-openssl-dev \
 libegl1-mesa \
 libelf-dev \
@@ -63,6 +82,17 @@ libsdl1.2-dev \
 libssl-dev \
 libtool \
 libu2f-udev \
+libx32asan5 \
+libx32atomic1 \
+libx32gcc-9-dev \
+libx32gcc-s1 \
+libx32gomp1 \
+libx32itm1 \
+libx32quadmath0 \
+libx32stdc++-9-dev \
+libx32stdc++6 \
+libx32stdc++6-9-dbg \
+libx32ubsan1 \
 locales \
 locate \
 lshw \
@@ -77,6 +107,9 @@ nodejs \
 npm \
 ntpdate \
 nvme-cli \
+openjdk-11-jre \
+openjdk-11-jre-headless \
+openjdk-8-jre-headless \
 openvpn \
 p7zip-full \
 par2 \
@@ -90,14 +123,15 @@ python3-gpg \
 python3-jinja2 \
 python3-pexpect \
 python3-pip \
+python3-polib \
 python3-subunit \
 python3-tk \
 python3-virtualenv \
 qemu-system-arm \
 qemu-user-static \
 quilt \
-rsync \
 ripgrep \
+rsync \
 ruby \
 scons \
 screen \

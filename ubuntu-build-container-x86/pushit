@@ -1,0 +1,4 @@
+#!/bin/bash
+export CONTAINER=ubuntu-build-container-x86
+sudo docker login --username edt11x --password $API_TOKEN ghcr.io
+sudo docker push ghcr.io/edt11x/$CONTAINER
