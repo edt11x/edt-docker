@@ -96,6 +96,7 @@ libx32ubsan1 \
 locales \
 locate \
 lshw \
+lsof \
 lzop \
 make \
 meld \
