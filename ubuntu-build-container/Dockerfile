@@ -65,6 +65,7 @@ libu2f-udev \
 locales \
 locate \
 lshw \
+lsof \
 lzop \
 make \
 meld \
