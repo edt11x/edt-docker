@@ -155,6 +155,12 @@ zlib1g \
 zlib1g-dev \
 && apt-get clean
 
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PHYTHONUNBUFFERED 1
+
+RUN pip install wic
+RUN pip install kas
+
 RUN sudo locale-gen en_US.UTF-8
 RUN groupadd -g 1000 user
 RUN useradd -m -u 1000 -g 1000 user
